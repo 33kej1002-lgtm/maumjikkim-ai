@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const protectivePhrases = [
   "모든 민원인의 감정을 내가 책임질 필요는 없습니다.",
@@ -24,6 +24,10 @@ export default function WellnessPage() {
   const [breathingActive, setBreathingActive] = useState(false);
   const [breathingRound, setBreathingRound] = useState(0);
   const [phraseIndex, setPhraseIndex] = useState(0);
+  const [todayPhraseIndex, setTodayPhraseIndex] = useState(0);
+  useEffect(() => {
+    setTodayPhraseIndex(new Date().getDate() % protectivePhrases.length);
+  }, []);
 
   const startBreathing = () => {
     setBreathingActive(true);
@@ -240,7 +244,7 @@ export default function WellnessPage() {
       <div className="bg-gradient-to-r from-teal-600 to-blue-600 text-white rounded-2xl p-6 mb-6">
         <p className="text-sm font-medium opacity-80 mb-2">오늘의 응원 문장</p>
         <p className="text-xl font-bold leading-snug">
-          "{protectivePhrases[new Date().getDate() % protectivePhrases.length]}"
+          "{protectivePhrases[todayPhraseIndex]}"
         </p>
       </div>
 
